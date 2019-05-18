@@ -1,0 +1,15 @@
+Create folders:
+Incoming
+Base,
+Delta
+
+Add images to Incoming
+
+CLI to check image in Base
+
+CLI to compare diffs
+
+CLI to overwrite Incoming in Base if the same
+
+CLI to take config of folders from file
+
