@@ -1,16 +1,12 @@
 const fs = require("fs-extra"),
   PNG = require("pngjs").PNG,
   pixelmatch = require("pixelmatch"),
-  findFilesByExt = require("./utils/findFile");
+  findFilesByExt = require("./utils/findFile"),
+  createPNGReadStream = require("./utils/createPNGReadStream");
 
 const incomingPath = __dirname + "/tests/snapshots/incoming/";
 const basePath = __dirname + "/tests/snapshots/base/";
 const deltaPath = __dirname + "/tests/snapshots/delta/";
-
-let filesRead = 0;
-let img1;
-let img2;
-let deltaImagePath = "";
 
 const filesToCompare = findFilesByExt(incomingPath, ".png");
 
@@ -29,42 +25,45 @@ function makeDirsFromPath(path) {
 filesToCompare.map(incomingImagePath => {
   const filePath = incomingImagePath.split(incomingPath)[1];
   const baseImagePath = basePath + filePath;
-  deltaImagePath = deltaPath + filePath;
+  const deltaImagePath = deltaPath + filePath;
 
   if (!fs.existsSync(baseImagePath)) {
     makeDirsFromPath(baseImagePath);
     fs.copyFile(incomingImagePath, baseImagePath, genericFailCb);
     return;
   } else {
-    // all needs to be sync
-    compare(incomingImagePath, baseImagePath);
+    compare(incomingImagePath, baseImagePath, deltaImagePath);
   }
 });
 
-function compare(path1, path2) {
-  img1 = fs
-    .createReadStream(path1)
-    .pipe(new PNG())
-    .on("parsed", imagesLoaded);
+function compare(incomingPath, basePath, deltaImagePath) {
+  const incomingImageBuffer = createPNGReadStream(incomingPath);
+  const baseImageBuffer = createPNGReadStream(basePath);
 
-  img2 = fs
-    .createReadStream(path2)
-    .pipe(new PNG())
-    .on("parsed", imagesLoaded);
-}
-
-function imagesLoaded() {
-  if (++filesRead < 2) return;
-  filesRead = 0;
-  comparator();
-}
-
-function comparator() {
-  var diff = new PNG({ width: img1.width, height: img1.height });
-
-  pixelmatch(img1.data, img2.data, diff.data, img1.width, img1.height, {
-    threshold: 0.1
+  Promise.all([incomingImageBuffer, baseImageBuffer]).then(function(images) {
+    const [incomingImage, baseImage] = images;
+    comparator(images, deltaImagePath);
   });
+}
+
+function comparator(images, deltaImagePath) {
+  const [incomingImage, baseImage] = images;
+
+  const diff = new PNG({
+    width: incomingImage.width,
+    height: incomingImage.height
+  });
+
+  pixelmatch(
+    incomingImage.data,
+    baseImage.data,
+    diff.data,
+    incomingImage.width,
+    incomingImage.height,
+    {
+      threshold: 0.1
+    }
+  );
 
   makeDirsFromPath(deltaImagePath);
 
