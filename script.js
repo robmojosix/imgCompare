@@ -54,7 +54,7 @@ function comparator(images, deltaImagePath) {
     height: incomingImage.height
   });
 
-  pixelmatch(
+  const mismatch = pixelmatch(
     incomingImage.data,
     baseImage.data,
     diff.data,
@@ -64,6 +64,13 @@ function comparator(images, deltaImagePath) {
       threshold: 0.1
     }
   );
+
+  if (mismatch) {
+    const mismatchFilePath = deltaImagePath.split(deltaPath)[1];
+    console.log(
+      `Incoming image ${incomingPath}${mismatchFilePath} is different from original!!!`
+    );
+  }
 
   makeDirsFromPath(deltaImagePath);
 
