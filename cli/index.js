@@ -17,7 +17,7 @@ const requiredConfigPaths = [
 const configFileName = "imgCompare.config.js";
 const noConfigMessage = `Please include a config file: ${configFileName}`;
 const incorrectConfigMessage = `Make sure your config file includes all paths`;
-const noArgsMessage = `Please pass an argument: compare || server`;
+const noArgsMessage = `Please pass an argument: ie: --compare`;
 
 function validate(config) {
   requiredConfigPaths.map(path => {
@@ -42,9 +42,9 @@ function getConfig() {
 const config = getConfig();
 
 if (argv.compare) {
-  compare(config);
-} else if (argv.server) {
-  server(config);
+  const mismatch = compare(config).then(mismatchImages => {
+    server(config, mismatchImages);
+  });
 } else {
   console.log(chalk.red(noArgsMessage));
 }

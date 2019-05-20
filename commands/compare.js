@@ -6,6 +6,8 @@ const fs = require("fs-extra"),
 
 let compareConfig = {};
 
+const misMatchFilePaths = [];
+
 const genericFailCb = err => {
   if (err) {
     console.log("error", err);
@@ -18,19 +20,29 @@ function makeDirsFromPath(path) {
   fs.mkdirsSync(allDirsPath, genericFailCb);
 }
 
-function compare(incomingPath, basePath, deltaImagePath) {
-  const incomingImageBuffer = createPNGReadStream(incomingPath);
-  const baseImageBuffer = createPNGReadStream(basePath);
+function compare(incomingImagePath, baseImagePath, deltaImagePath) {
+  return new Promise(function(resolve, reject) {
+    const incomingImageBuffer = createPNGReadStream(incomingImagePath);
+    const baseImageBuffer = createPNGReadStream(baseImagePath);
 
-  Promise.all([incomingImageBuffer, baseImageBuffer])
-    .then(function(images) {
-      const [incomingImage, baseImage] = images;
-      comparator(images, deltaImagePath);
-    })
-    .catch(err => console.log(err));
+    const imagePaths = {
+      incoming: incomingImagePath,
+      base: baseImagePath,
+      delta: deltaImagePath
+    };
+
+    Promise.all([incomingImageBuffer, baseImageBuffer])
+      .then(function(images) {
+        comparator(images, imagePaths);
+      })
+      .then(() => {
+        resolve();
+      })
+      .catch(err => console.log(err));
+  });
 }
 
-function comparator(images, deltaImagePath) {
+function comparator(images, imagePaths) {
   const [incomingImage, baseImage] = images;
 
   const diff = new PNG({
@@ -50,18 +62,21 @@ function comparator(images, deltaImagePath) {
   );
 
   if (mismatch) {
-    const mismatchFilePath = deltaImagePath.split(
+    const mismatchFilePath = imagePaths.delta.split(
       compareConfig.directory + compareConfig.deltaPath
     )[1];
+
+    misMatchFilePaths.push(imagePaths);
+
     console.log(
       `Incoming image ${compareConfig.directory +
         compareConfig.incomingPath}${mismatchFilePath} is different from original!!!`
     );
   }
 
-  makeDirsFromPath(deltaImagePath);
+  makeDirsFromPath(imagePaths.delta);
 
-  diff.pack().pipe(fs.createWriteStream(deltaImagePath));
+  diff.pack().pipe(fs.createWriteStream(imagePaths.delta));
 }
 
 module.exports = config => {
@@ -71,6 +86,8 @@ module.exports = config => {
   const deltaPath = process.cwd() + config.directory + config.deltaPath;
 
   const filesToCompare = findFilesByExt(incomingPath, ".png");
+
+  const comparePromises = [];
 
   filesToCompare.map(incomingImagePath => {
     const filePath = incomingImagePath.split(incomingPath)[1];
@@ -82,7 +99,13 @@ module.exports = config => {
       fs.copyFile(incomingImagePath, baseImagePath, genericFailCb);
       return;
     } else {
-      compare(incomingImagePath, baseImagePath, deltaImagePath);
+      comparePromises.push(
+        compare(incomingImagePath, baseImagePath, deltaImagePath)
+      );
     }
+  });
+
+  return Promise.all(comparePromises).then(function() {
+    return misMatchFilePaths;
   });
 };
