@@ -42127,7 +42127,11 @@ var ImageComparator = function ImageComparator(_ref) {
       delta = _ref.delta,
       update = _ref.update;
   var x = 1;
-  return _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, null, "Incoming"), _react.default.createElement(_reactBootstrap.Col, {
+    align: "right"
+  }, "Base"), _react.default.createElement(_reactBootstrap.Col, null), _react.default.createElement(_reactBootstrap.Col, null)), _react.default.createElement(_reactBootstrap.Row, {
+    className: "image-comparator-row"
+  }, _react.default.createElement(_reactBootstrap.Col, {
     className: "image-comparator"
   }, _react.default.createElement(_reactBootstrap.Card, null, _react.default.createElement(_reactCompareImage.default, {
     leftImage: incoming,
@@ -42141,10 +42145,10 @@ var ImageComparator = function ImageComparator(_ref) {
   }, _react.default.createElement(_reactBootstrap.Card.Img, {
     variant: "top",
     src: delta
-  }), _react.default.createElement(_reactBootstrap.Card.Body, null, _react.default.createElement(_reactBootstrap.Card.Title, null, "Delta"), _react.default.createElement(_reactBootstrap.Card.Text, null, "Was this expected? You can update the base image with incoming?"), _react.default.createElement(_reactBootstrap.Button, {
+  }), _react.default.createElement(_reactBootstrap.Card.Body, null, _react.default.createElement(_reactBootstrap.Card.Title, null, "Delta"), _react.default.createElement(_reactBootstrap.Card.Text, null, "Was this expected? Do you want to update the base image with the incoming image?"), _react.default.createElement(_reactBootstrap.Button, {
     onClick: update,
     variant: "primary"
-  }, "Update")))));
+  }, "Update"))))));
 };
 
 var _default = ImageComparator;
@@ -42301,7 +42305,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50609" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55686" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

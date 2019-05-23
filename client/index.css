@@ -1,0 +1,14 @@
+body {
+	margin: 20px;
+}
+
+.App-header {
+	margin-bottom: 20px;
+	border-bottom: grey 1px solid;
+}
+
+.image-comparator-row {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: grey 1px solid;
+}
