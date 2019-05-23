@@ -25897,6 +25897,10 @@ module.exports = {
 };
 },{}],"../tmp/mismatchImages.js":[function(require,module,exports) {
 module.exports = [{
+  "incoming": "/tests/snapshots/incoming/test1/img1.png",
+  "base": "/tests/snapshots/base/test1/img1.png",
+  "delta": "/tests/snapshots/delta/test1/img1.png"
+}, {
   "incoming": "/tests/snapshots/incoming/test1/img2.png",
   "base": "/tests/snapshots/base/test1/img2.png",
   "delta": "/tests/snapshots/delta/test1/img2.png"
@@ -25996,7 +26000,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57831" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59436" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
