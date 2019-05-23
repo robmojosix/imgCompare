@@ -1,1 +1,1 @@
-module.exports = [{"incoming":"/Users/robert.hadleyjones/workspace/imgCompare/tests/snapshots/incoming/test1/img2.png","base":"/Users/robert.hadleyjones/workspace/imgCompare/tests/snapshots/base/test1/img2.png","delta":"/Users/robert.hadleyjones/workspace/imgCompare/tests/snapshots/delta/test1/img2.png"}];
+module.exports = [{"incoming":"/tests/snapshots/incoming/test1/img2.png","base":"/tests/snapshots/base/test1/img2.png","delta":"/tests/snapshots/delta/test1/img2.png"}];

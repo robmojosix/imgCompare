@@ -2,5 +2,18 @@ body {
 	background: red;
 }
 
+.image-comparator {
+	display: inline-block;
+	width: 100%;
+}
+
+.image-comparator div {
+	display: inline-block;
+	width: 33%;
+}
+
+.image-comparator img {
+}
+
 
 /*# sourceMappingURL=/client.e31bb0bc.css.map */

@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 const fs = require("fs-extra");
-const path = require("path");
 const chalk = require("chalk");
 const argv = require("yargs").argv;
 const {spawn} = require("child_process");
 
 const compare = require("../commands/compare");
-const server = require("../server/index");
 
 const requiredConfigPaths = ["directory", "incomingPath", "basePath", "deltaPath"];
 
@@ -35,11 +33,23 @@ function getConfig() {
 	}
 }
 
+function makeRelative(arrayOfPaths) {
+	return arrayOfPaths.map(paths => {
+		const returnObject = {};
+		Reflect.ownKeys(paths).forEach(key => {
+			returnObject[key] = paths[key].split(process.cwd())[1];
+		});
+		return returnObject;
+	});
+}
+
 const config = getConfig();
 
 if (argv.compare) {
 	compare(config).then(mismatchImages => {
-		const contents = `module.exports = ${JSON.stringify(mismatchImages)};`;
+		const relativeMismatchImages = makeRelative(mismatchImages);
+		console.log("67", relativeMismatchImages);
+		const contents = `module.exports = ${JSON.stringify(relativeMismatchImages)};`;
 		fs.writeFile("tmp/mismatchImages.js", contents, function(err) {
 			if (err) {
 				return console.log(err);

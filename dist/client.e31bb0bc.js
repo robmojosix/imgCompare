@@ -25820,11 +25820,86 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../tmp/mismatchImages.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/ImageComparator.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImageComparator = function ImageComparator(_ref) {
+  var base = _ref.base,
+      incoming = _ref.incoming,
+      delta = _ref.delta,
+      update = _ref.update;
+  var x = 1;
+  return _react.default.createElement("div", {
+    className: "image-comparator"
+  }, _react.default.createElement("div", null, _react.default.createElement("p", null, "Incoming"), _react.default.createElement("img", {
+    src: incoming
+  })), _react.default.createElement("div", null, _react.default.createElement("p", null, "Base"), _react.default.createElement("img", {
+    src: base
+  })), _react.default.createElement("div", null, _react.default.createElement("p", null, "Delta"), _react.default.createElement("img", {
+    src: delta
+  })), _react.default.createElement("button", {
+    onClick: update
+  }, "Save Incoming as Base"));
+};
+
+var _default = ImageComparator;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"../package.json":[function(require,module,exports) {
+module.exports = {
+  "name": "imgcompare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "staticFiles": {
+    "staticPath": "/tests",
+    "watcherGlob": "**"
+  },
+  "bin": {
+    "imgCompare": "./cli/index.js"
+  },
+  "scripts": {
+    "start": "parcel ./client/index.html --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robmojosix/imgCompare.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robmojosix/imgCompare/issues"
+  },
+  "homepage": "https://github.com/robmojosix/imgCompare#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "express": "^4.17.0",
+    "fs-extra": "^8.0.1",
+    "parcel-plugin-static-files-copy": "^2.1.1",
+    "pixelmatch": "^4.0.2",
+    "pngjs": "^3.4.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "yargs": "^13.2.4"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
+};
+},{}],"../tmp/mismatchImages.js":[function(require,module,exports) {
 module.exports = [{
-  "incoming": "/Users/robert.hadleyjones/workspace/imgCompare/tests/snapshots/incoming/test1/img2.png",
-  "base": "/Users/robert.hadleyjones/workspace/imgCompare/tests/snapshots/base/test1/img2.png",
-  "delta": "/Users/robert.hadleyjones/workspace/imgCompare/tests/snapshots/delta/test1/img2.png"
+  "incoming": "/tests/snapshots/incoming/test1/img2.png",
+  "base": "/tests/snapshots/base/test1/img2.png",
+  "delta": "/tests/snapshots/delta/test1/img2.png"
 }];
 },{}],"App.js":[function(require,module,exports) {
 "use strict";
@@ -25836,27 +25911,50 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _ImageComparator = _interopRequireDefault(require("./components/ImageComparator"));
+
+var _package = _interopRequireDefault(require("../package.json"));
+
 var _mismatchImages = _interopRequireDefault(require("../tmp/mismatchImages"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log("567", _mismatchImages.default);
+var removeStaticFolderPath = function removeStaticFolderPath(arrayOfPaths) {
+  return arrayOfPaths.map(function (paths) {
+    var returnObject = {};
+    Reflect.ownKeys(paths).forEach(function (key) {
+      returnObject[key] = paths[key].split(_package.default.staticFiles.staticPath)[1];
+    });
+    return returnObject;
+  });
+};
 
 var App = function App() {
+  var handleUpdate = function handleUpdate() {
+    console.log("update");
+  };
+
+  var mismatchImagePaths = removeStaticFolderPath(_mismatchImages.default);
   return _react.default.createElement("div", {
     className: "App"
   }, _react.default.createElement("header", {
     className: "App-header"
   }, _react.default.createElement("h1", {
     className: "App-title"
-  }, "Welcome to React")), _react.default.createElement("p", {
-    className: "App-intro"
-  }, "To get started, edit ", _react.default.createElement("code", null, "src/App.js"), " and save to reload."));
+  }, "Image regression failures")), _react.default.createElement("div", null, mismatchImagePaths.map(function (img, index) {
+    return _react.default.createElement(_ImageComparator.default, {
+      key: index,
+      update: handleUpdate,
+      base: img.base,
+      incoming: img.incoming,
+      delta: img.delta
+    });
+  })));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../tmp/mismatchImages":"../tmp/mismatchImages.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./components/ImageComparator":"components/ImageComparator.js","../package.json":"../package.json","../tmp/mismatchImages":"../tmp/mismatchImages.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -25898,7 +25996,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54192" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57831" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
