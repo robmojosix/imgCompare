@@ -32,6 +32,7 @@
 		"pixelmatch": "^4.0.2",
 		"pngjs": "^3.4.0",
 		"react": "^16.8.6",
+		"react-compare-image": "^0.8.2",
 		"react-dom": "^16.8.6",
 		"yargs": "^13.2.4"
 	},

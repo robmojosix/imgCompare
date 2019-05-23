@@ -1,19 +1,18 @@
 import React from "react";
+import ReactCompareImage from "react-compare-image";
 
 const ImageComparator = ({base, incoming, delta, update}) => {
 	const x = 1;
 	return (
 		<div className="image-comparator">
+			<ReactCompareImage
+				leftImage={incoming}
+				rightImage={base}
+				rightImageLabel="Base"
+				leftImageLabel="Incoming"
+			/>
+			;
 			<div>
-				<p>Incoming</p>
-				<img src={incoming} />
-			</div>
-			<div>
-				<p>Base</p>
-				<img src={base} />
-			</div>
-			<div>
-				<p>Delta</p>
 				<img src={delta} />
 			</div>
 			<button onClick={update}>Save Incoming as Base</button>
