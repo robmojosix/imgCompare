@@ -25,6 +25,7 @@
 	},
 	"homepage": "https://github.com/robmojosix/imgCompare#readme",
 	"dependencies": {
+		"bootstrap": "^4.3.1",
 		"chalk": "^2.4.2",
 		"express": "^4.17.0",
 		"fs-extra": "^8.0.1",
@@ -32,6 +33,7 @@
 		"pixelmatch": "^4.0.2",
 		"pngjs": "^3.4.0",
 		"react": "^16.8.6",
+		"react-bootstrap": "^1.0.0-beta.8",
 		"react-compare-image": "^0.8.2",
 		"react-dom": "^16.8.6",
 		"yargs": "^13.2.4"

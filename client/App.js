@@ -1,5 +1,6 @@
 import React from "react";
 import ImageComparator from "./components/ImageComparator";
+import {Container} from "react-bootstrap";
 
 import config from "../package.json";
 
@@ -27,7 +28,7 @@ const App = () => {
 			<header className="App-header">
 				<h1 className="App-title">Image regression failures</h1>
 			</header>
-			<div>
+			<Container>
 				{mismatchImagePaths.map((img, index) => {
 					return (
 						<ImageComparator
@@ -39,7 +40,7 @@ const App = () => {
 						/>
 					);
 				})}
-			</div>
+			</Container>
 		</div>
 	);
 };

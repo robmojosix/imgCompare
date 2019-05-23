@@ -48,7 +48,6 @@ const config = getConfig();
 if (argv.compare) {
 	compare(config).then(mismatchImages => {
 		const relativeMismatchImages = makeRelative(mismatchImages);
-		console.log("67", relativeMismatchImages);
 		const contents = `module.exports = ${JSON.stringify(relativeMismatchImages)};`;
 		fs.writeFile("tmp/mismatchImages.js", contents, function(err) {
 			if (err) {
