@@ -3,15 +3,13 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"staticFiles": {
-		"staticPath": "/tests",
-		"watcherGlob": "**"
-	},
 	"bin": {
 		"imgCompare": "./cli/index.js"
 	},
 	"scripts": {
-		"start": "parcel ./client/index.html --open",
+    "start": "parcel ./client/index.html --open",
+    "build": "parcel build client/index.html --out-dir dist/client",
+    "server": "node ./server/index.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
