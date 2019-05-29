@@ -1,44 +1,39 @@
 import React from "react";
 import ReactCompareImage from "react-compare-image";
-import {Row, Col, Card, Button} from "react-bootstrap";
+import {Row, Col, Card, Button, ButtonToolbar} from "react-bootstrap";
 
-const ImageComparator = ({base, incoming, delta, update}) => {
-	const x = 1;
+const ImageComparator = ({base, incoming, delta, update, toggleDelta, showDelta = false}) => {
 	return (
-		<>
-			<Row>
-				<Col>Incoming</Col>
-				<Col align="right">Base</Col>
-				<Col />
-				<Col />
-			</Row>
-			<Row className="image-comparator-row">
-				<Col className="image-comparator">
-					<Card>
-						<ReactCompareImage
-							leftImage={incoming}
-							rightImage={base}
-							rightImageLabel="Base"
-							leftImageLabel="Incoming"
-						/>
-					</Card>
-				</Col>
-				<Col>
-					<Card style={{width: "18rem"}}>
-						<Card.Img variant="top" src={delta} />
-						<Card.Body>
-							<Card.Title>Delta</Card.Title>
-							<Card.Text>
-								Was this expected? Do you want to update the base image with the incoming image?
-							</Card.Text>
-							<Button onClick={update} variant="primary">
-								Update
-							</Button>
-						</Card.Body>
-					</Card>
-				</Col>
-			</Row>
-		</>
+		<Row className="image-comparator-row">
+			<Col className="image-comparator">
+				<Card>
+					{showDelta ? <Card.Img variant="top" src={delta} /> : null}
+					<Card.Header as="h5">{incoming}</Card.Header>
+					<Row>
+						<Col>
+							<Card.Text className="text-center">Incoming</Card.Text>
+						</Col>
+						<Col>
+							<Card.Text className="text-center">Base</Card.Text>
+						</Col>
+					</Row>
+					<ReactCompareImage
+						leftImage={incoming}
+						rightImage={base}
+						rightImageLabel="Base"
+						leftImageLabel="Incoming"
+					/>
+					<ButtonToolbar>
+						<Button className="cardButtons" onClick={toggleDelta} variant="primary">
+							Toggle Delta
+						</Button>
+						<Button className="cardButtons" onClick={update} variant="primary">
+							Update Image
+						</Button>
+					</ButtonToolbar>
+				</Card>
+			</Col>
+		</Row>
 	);
 };
 

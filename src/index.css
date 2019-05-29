@@ -2,6 +2,11 @@ body {
 	margin: 20px;
 }
 
+.App {
+	max-width: 700px;
+	margin: 0 auto;
+}
+
 .App-header {
 	margin-bottom: 20px;
 	border-bottom: grey 1px solid;
@@ -10,5 +15,8 @@ body {
 .image-comparator-row {
 	margin-bottom: 20px;
 	padding-bottom: 20px;
-	border-bottom: grey 1px solid;
+}
+
+.cardButtons {
+	margin: 12px 0 12px 12px;
 }

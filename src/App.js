@@ -24,6 +24,8 @@ const App = () => {
 		}).then(response => response.json());
 	};
 
+	const handleToggleDelta = () => {};
+
 	const mismatchImagePaths = removeStaticFolderPath(window.mismatchImages || []);
 
 	return (
@@ -40,6 +42,7 @@ const App = () => {
 							base={img.base}
 							incoming={img.incoming}
 							delta={img.delta}
+							toggleDelta={handleToggleDelta}
 						/>
 					);
 				})}

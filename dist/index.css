@@ -1,2 +1,25 @@
-body{margin:20px}.App-header,.image-comparator-row{margin-bottom:20px;border-bottom:1px solid grey}.image-comparator-row{padding-bottom:20px}
+body {
+	margin: 20px;
+}
+
+.App {
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+.App-header {
+	margin-bottom: 20px;
+	border-bottom: grey 1px solid;
+}
+
+.image-comparator-row {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+
+.cardButtons {
+	margin: 12px 0 12px 12px;
+}
+
+
 /*# sourceMappingURL=/index.css.map */
