@@ -1,1 +1,0 @@
-module.exports = [{"incoming":"/tests/snapshots/incoming/test1/img1.png","base":"/tests/snapshots/base/test1/img1.png","delta":"/tests/snapshots/delta/test1/img1.png"},{"incoming":"/tests/snapshots/incoming/test1/img2.png","base":"/tests/snapshots/base/test1/img2.png","delta":"/tests/snapshots/delta/test1/img2.png"}];

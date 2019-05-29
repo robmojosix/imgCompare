@@ -4,8 +4,6 @@ import {Container} from "react-bootstrap";
 
 import config from "../package.json";
 
-import mismatchImages from "../tmp/mismatchImages";
-
 const removeStaticFolderPath = arrayOfPaths => {
 	return arrayOfPaths.map(paths => {
 		const returnObject = {};
@@ -26,7 +24,7 @@ const App = () => {
 		}).then(response => response.json());
 	};
 
-	const mismatchImagePaths = removeStaticFolderPath(mismatchImages);
+	const mismatchImagePaths = removeStaticFolderPath(window.mismatchImages || []);
 
 	return (
 		<div className="App">
