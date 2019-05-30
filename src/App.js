@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import ImageComparator from "./components/ImageComparator";
 import {Container} from "react-bootstrap";
 
@@ -14,6 +14,8 @@ const removeStaticFolderPath = arrayOfPaths => {
 	});
 };
 
+const mismatchImagePaths = removeStaticFolderPath(window.mismatchImages || []);
+
 const App = () => {
 	const handleUpdate = () => {
 		fetch("/update-file", {
@@ -23,10 +25,6 @@ const App = () => {
 			}
 		}).then(response => response.json());
 	};
-
-	const handleToggleDelta = () => {};
-
-	const mismatchImagePaths = removeStaticFolderPath(window.mismatchImages || []);
 
 	return (
 		<div className="App">
@@ -42,7 +40,6 @@ const App = () => {
 							base={img.base}
 							incoming={img.incoming}
 							delta={img.delta}
-							toggleDelta={handleToggleDelta}
 						/>
 					);
 				})}
