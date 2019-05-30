@@ -1,51 +1,74 @@
 import React, {Component} from "react";
 import ImageComparator from "./components/ImageComparator";
 import {Container} from "react-bootstrap";
+import {Modal, Button} from "react-bootstrap";
 
-import config from "../package.json";
-
-const removeStaticFolderPath = arrayOfPaths => {
-	return arrayOfPaths.map(paths => {
-		const returnObject = {};
-		Reflect.ownKeys(paths).forEach(key => {
-			returnObject[key] = paths[key].split(config.staticFiles.staticPath)[1];
-		});
-		return returnObject;
-	});
+const removeFilesFromGlobal = files => {
+	window.mismatchImages = window.mismatchImages.filter(img => JSON.stringify(img) === JSON.stringify(files));
 };
 
-const mismatchImagePaths = removeStaticFolderPath(window.mismatchImages || []);
+class App extends Component {
+	constructor() {
+		super();
 
-const App = () => {
-	const handleUpdate = () => {
-		fetch("/update-file", {
+		this.state = {
+			showModel: false
+		};
+
+		this.handleUpdate = this.handleUpdate.bind(this);
+		this.handleCloseModel = this.handleCloseModel.bind(this);
+	}
+
+	handleUpdate(files) {
+		const data = JSON.stringify({files});
+
+		const options = {
 			method: "PUT",
-			body: {
-				file: "xyz.png"
-			}
-		}).then(response => response.json());
-	};
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json"
+			},
+			body: data
+		};
 
-	return (
-		<div className="App">
-			<header className="App-header">
-				<h1 className="App-title">Image regression failures</h1>
-			</header>
-			<Container>
-				{mismatchImagePaths.map((img, index) => {
-					return (
-						<ImageComparator
-							key={index}
-							update={handleUpdate}
-							base={img.base}
-							incoming={img.incoming}
-							delta={img.delta}
-						/>
-					);
-				})}
-			</Container>
-		</div>
-	);
-};
+		fetch("/update-files", options).then(res => {
+			if (res.status === 200) {
+				removeFilesFromGlobal(files);
+				this.setState({showModel: true});
+			}
+		});
+	}
+
+	handleCloseModel() {
+		this.setState({showModel: false});
+	}
+
+	render() {
+		const mismatchImagePaths = window.mismatchImages || [];
+
+		return (
+			<div className="App">
+				<header className="App-header">
+					<h1 className="App-title">Image regression failures</h1>
+				</header>
+				<Container>
+					{mismatchImagePaths.map((img, index) => {
+						return <ImageComparator key={index} img={img} update={this.handleUpdate} />;
+					})}
+				</Container>
+				<Modal show={this.state.showModel} onHide={this.handleCloseModel}>
+					<Modal.Header closeButton>
+						<Modal.Title>File Updated!</Modal.Title>
+					</Modal.Header>
+					<Modal.Footer>
+						<Button variant="secondary" onClick={this.handleCloseModel}>
+							Ok
+						</Button>
+					</Modal.Footer>
+				</Modal>
+			</div>
+		);
+	}
+}
 
 export default App;

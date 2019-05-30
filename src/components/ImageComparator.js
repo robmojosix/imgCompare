@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import ReactCompareImage from "react-compare-image";
 import {Row, Col, Card, Button, ButtonToolbar} from "react-bootstrap";
 
-const ImageComparator = ({base, incoming, delta, update}) => {
+const ImageComparator = ({img, update}) => {
 	const [showDelta, setDelta] = useState(false);
 
 	return (
 		<Row className="image-comparator-row">
 			<Col className="image-comparator">
 				<Card>
-					<Card.Header as="h5">{incoming}</Card.Header>
+					<Card.Header as="h5">{img.incoming}</Card.Header>
 					<Row>
 						<Col>
 							<Card.Text className="text-center">Incoming</Card.Text>
@@ -19,10 +19,10 @@ const ImageComparator = ({base, incoming, delta, update}) => {
 						</Col>
 					</Row>
 					<div className="images">
-						{showDelta ? <Card.Img className="delta" variant="top" src={delta} /> : null}
+						{showDelta ? <Card.Img className="delta" variant="top" src={img.delta} /> : null}
 						<ReactCompareImage
-							leftImage={incoming}
-							rightImage={base}
+							leftImage={img.incoming}
+							rightImage={img.base}
 							rightImageLabel="Base"
 							leftImageLabel="Incoming"
 						/>
@@ -31,7 +31,7 @@ const ImageComparator = ({base, incoming, delta, update}) => {
 						<Button className="cardButtons" onClick={() => setDelta(!showDelta)} variant="primary">
 							Toggle Delta
 						</Button>
-						<Button className="cardButtons" onClick={update} variant="primary">
+						<Button className="cardButtons" onClick={() => update(img)} variant="primary">
 							Update Image
 						</Button>
 					</ButtonToolbar>
