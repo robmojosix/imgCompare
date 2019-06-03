@@ -28,10 +28,10 @@ const ImageComparator = ({img, update}) => {
 						/>
 					</div>
 					<ButtonToolbar>
-						<Button className="cardButtons" onClick={() => setDelta(!showDelta)} variant="primary">
+						<Button className="cardButtons" onClick={() => setDelta(!showDelta)} variant="secondary">
 							Toggle Delta
 						</Button>
-						<Button className="cardButtons" onClick={() => update(img)} variant="primary">
+						<Button className="cardButtons" onClick={() => update(img)} variant="warning">
 							Update Image
 						</Button>
 					</ButtonToolbar>

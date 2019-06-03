@@ -1,12 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+const compare = require("../commands/compare");
 const removeStaticFolderPath = require("../utils/removeStaticFolderPath");
+const addStaticFolderPath = require("../utils/addStaticFolderPath");
+const updateImages = require("../utils/updateImages");
 
 const app = express();
 const port = 1800;
 
-exports.default = mismatchImages => {
+exports.default = () => {
 	app.use(express.static(process.cwd() + "/dist"));
 
 	app.use(
@@ -21,12 +24,16 @@ exports.default = mismatchImages => {
 
 	app.set("view engine", "ejs");
 
-	const data = JSON.stringify(removeStaticFolderPath(mismatchImages)) || [];
-
-	app.get("/", (req, res) => res.render("index", {data}));
+	app.get("/", (req, res) => {
+		compare().then(mismatchImages => {
+			const data = JSON.stringify(removeStaticFolderPath(mismatchImages)) || [];
+			res.render("index", {data});
+		});
+	});
 
 	app.put("/update-files", (req, res) => {
-		// console.log("123", req.body.files);
+		const imagesToUpdate = addStaticFolderPath(req.body.files);
+		updateImages(imagesToUpdate);
 		res.status(200).send("File Updated!");
 	});
 

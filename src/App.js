@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import ImageComparator from "./components/ImageComparator";
 import {Container} from "react-bootstrap";
-import {Modal, Button} from "react-bootstrap";
+import {Modal, Button, Alert} from "react-bootstrap";
+
+const SUCCESS_MESSAGE = "File Updated!";
+const FAILURE_MESSAGE = "Something went wrong!";
 
 const removeFilesFromGlobal = files => {
-	window.mismatchImages = window.mismatchImages.filter(img => JSON.stringify(img) === JSON.stringify(files));
+	window.mismatchImages = window.mismatchImages.filter(img => JSON.stringify(img) !== JSON.stringify(files));
 };
 
 class App extends Component {
@@ -12,7 +15,8 @@ class App extends Component {
 		super();
 
 		this.state = {
-			showModel: false
+			showModel: false,
+			modelText: ""
 		};
 
 		this.handleUpdate = this.handleUpdate.bind(this);
@@ -34,7 +38,9 @@ class App extends Component {
 		fetch("/update-files", options).then(res => {
 			if (res.status === 200) {
 				removeFilesFromGlobal(files);
-				this.setState({showModel: true});
+				this.setState({showModel: true, modelText: SUCCESS_MESSAGE});
+			} else {
+				this.setState({showModel: true, modelText: FAILURE_MESSAGE});
 			}
 		});
 	}
@@ -51,14 +57,18 @@ class App extends Component {
 				<header className="App-header">
 					<h1 className="App-title">Image regression failures</h1>
 				</header>
-				<Container>
-					{mismatchImagePaths.map((img, index) => {
-						return <ImageComparator key={index} img={img} update={this.handleUpdate} />;
-					})}
-				</Container>
+				{mismatchImagePaths.length > 0 ? (
+					<Container>
+						{mismatchImagePaths.map((img, index) => {
+							return <ImageComparator key={index} img={img} update={this.handleUpdate} />;
+						})}
+					</Container>
+				) : (
+					<Alert variant="success">All images match :)</Alert>
+				)}
 				<Modal show={this.state.showModel} onHide={this.handleCloseModel}>
 					<Modal.Header closeButton>
-						<Modal.Title>File Updated!</Modal.Title>
+						<Modal.Title>{this.state.modelText}</Modal.Title>
 					</Modal.Header>
 					<Modal.Footer>
 						<Button variant="secondary" onClick={this.handleCloseModel}>
