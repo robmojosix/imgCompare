@@ -6,11 +6,14 @@ const removeStaticFolderPath = require("../utils/removeStaticFolderPath");
 const addStaticFolderPath = require("../utils/addStaticFolderPath");
 const updateImages = require("../utils/updateImages");
 
+const config = require("../imgCompare.config.js");
+
 const app = express();
 const port = 1800;
 
 exports.default = () => {
 	app.use(express.static(process.cwd() + "/dist"));
+	app.use(express.static(process.cwd() + config.directory));
 
 	app.use(
 		bodyParser.urlencoded({

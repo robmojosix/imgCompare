@@ -5,6 +5,8 @@ import {Row, Col, Card, Button, ButtonToolbar} from "react-bootstrap";
 const ImageComparator = ({img, update}) => {
 	const [showDelta, setDelta] = useState(false);
 
+	console.log("img", img);
+
 	return (
 		<Row className="image-comparator-row">
 			<Col className="image-comparator">

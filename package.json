@@ -6,9 +6,6 @@
 	"bin": {
 		"imgCompare": "./cli/index.js"
 	},
-	"staticFiles": {
-		"staticPath": "/tests"
-	},
 	"scripts": {
 		"build": "parcel build src/index.js --out-dir dist/",
 		"watch": "parcel watch src/index.js --out-dir dist/",

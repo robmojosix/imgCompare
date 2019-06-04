@@ -70,12 +70,12 @@ function comparator(images, imagePaths) {
 	diff.pack().pipe(fs.createWriteStream(imagePaths.delta));
 
 	if (mismatch) {
-		const mismatchFilePath = imagePaths.delta.split(compareConfig.directory + compareConfig.deltaPath)[1];
+		// const mismatchFilePath = imagePaths.delta.split(compareConfig.directory + compareConfig.deltaPath)[1];
 
-		console.log(
-			`Incoming image ${compareConfig.directory +
-				compareConfig.incomingPath}${mismatchFilePath} is different from original!!!`
-		);
+		// console.log(
+		// 	`Incoming image ${compareConfig.directory +
+		// 		compareConfig.incomingPath}${mismatchFilePath} is different from original!!!`
+		// );
 
 		return imagePaths;
 	}
