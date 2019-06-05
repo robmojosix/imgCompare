@@ -2,14 +2,17 @@ body {
 	margin: 20px;
 }
 
-.App {
+.wrapper.container {
 	max-width: 700px;
 	margin: 0 auto;
 }
 
 .App-header {
 	margin-bottom: 20px;
-	border-bottom: grey 1px solid;
+	text-align: center;
+	padding: 12px;
+	color: white;
+	background: grey;
 }
 
 .image-comparator-row {

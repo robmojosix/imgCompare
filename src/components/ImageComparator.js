@@ -12,14 +12,6 @@ const ImageComparator = ({img, update}) => {
 			<Col className="image-comparator">
 				<Card>
 					<Card.Header as="h5">{img.incoming}</Card.Header>
-					<Row>
-						<Col>
-							<Card.Text className="text-center">Incoming</Card.Text>
-						</Col>
-						<Col>
-							<Card.Text className="text-center">Base</Card.Text>
-						</Col>
-					</Row>
 					<div className="images">
 						{showDelta ? <Card.Img className="delta" variant="top" src={img.delta} /> : null}
 						<ReactCompareImage

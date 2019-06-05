@@ -7,6 +7,7 @@ module.exports = function updateImages(imagesObject) {
 		if (err) throw err;
 	});
 
-	fs.unlinkSync(process.cwd() + incoming);
+	// remove only delta for now
+	// fs.unlinkSync(process.cwd() + incoming);
 	fs.unlinkSync(process.cwd() + delta);
 };

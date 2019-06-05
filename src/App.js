@@ -58,7 +58,7 @@ class App extends Component {
 					<h1 className="App-title">Image regression failures</h1>
 				</header>
 				{mismatchImagePaths.length > 0 ? (
-					<Container>
+					<Container className="wrapper">
 						{mismatchImagePaths.map((img, index) => {
 							return <ImageComparator key={index} img={img} update={this.handleUpdate} />;
 						})}
