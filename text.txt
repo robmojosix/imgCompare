@@ -1,0 +1,91 @@
+Whats the problem: Automated testing can't tell you if something doesn't look right, so UI regressions may go undetected.
+Good for testing your web pages or even just a single component or part of a site for visual changes.
+(How much confidence do you have changing JS over css)
+
+Image regression tools:
+
+Wraith: from BBC Capture mode and history mode
+give it 2 domains and it compares them now or over time
+http://bbc-news.github.io/wraith/#before_capturehooks
+Allows you to add cutom JS.
+(ALL baked in - I have to write regression tests to use it.)
+
+PhantomCSS: PhantomJS/CasperJS popular with frontenders  - no long being maintained
+Select part of a page or whole page - all configurable what to do when complete, when taking when comparing.
+You write your phantomCSS commands into your scenarios
+but these have to be writen using CasperJS
+
+Gemini: build on top of Selenium. Again, provides the test suite. You write the scenarios
+
+WebdriverCSS again the same.
+
+BackstopJS same again.
+
+On the other hand you have tools like:
+Resemble.js which only give you a comparing API. You need to write a framework around it.
+
+Huxley from facebook, now deprecated - you create a scenario by manually navigating a site while huxley records.
+It records, mouse clicks and movements so it can replay them.
+You hit enter when you want a screen shot to be taken and huxley can then replay and compare later.
+
+test-crawler: crawls your site and builds up a Visual regression suite.
+
+We also have these tools offered as Online services.
+
+Where is the sweet spot.
+
+Specture: a tool soely for comaring images. It requires apps to send data to a running ruby server which (which is Specture)
+That can compare screenshots. You have to provide a list of screenshots. not good locally. Ruby App.
+https://medium.com/friday-people/how-we-do-visual-regression-testing-af63fa8b8eb1
+Late fail scenarios
+
+There are hundres.
+
+My experience: a UI lib and site.
+UI was easier but felt less effective. Where I wanted the reassurance was at a site level.
+Changing components. Consumers have no idea whats coming
+
+A proposition.
+First what I like about what's out there: separation of compare logic with writing tests.
+We already have tests - we don't want to rewrite them.
+Visual regression tests often become a sub set of tests.
+What I want is a single source for a BDD tests and a way of regression testing visuals to bolt on.
+
+But to do this we need to change the way we approach BDD (slightly)
+First, I beleieve we should get better with our BDD tests.
+Medium tests aren't really doing it.
+As we've discussed - we need to provide a system whereby we have scenarios at the forefront of tickets
+and new scenarios discovered at build time are recorded and added.
+These scenarios should form the the ultimate documentation for our product. For dev and non-tech alike.
+
+So we need to give complete importance to these tests.
+So we have a set of tests, written in any language that describe the product and every feature.
+A byproduct of this is that it can be used to automate a browser and test these features.
+
+We have a tool for comparing images.
+
+we need to bridge the gap.
+
+Introducing Feature Storyboarding. or FeatureBoarding.
+Based on storyBoarding.
+Apps should use which ever tech they want to add screen shots into those BDD tests.
+Ultimatley bringing them to life. yes yuo can run the test but it goes so fast etc.
+You would have a visual record of every feature journey.
+Like a comic of the app.
+Imagine using it as a dev.
+Imagine being asked what happend when a user gets their password wrong or their balance runs out midway thorugh a game and x and y.
+Well look it up.
+If it aint there, it wasn't requested. Biz can ask for it or leave it.
+
+Show Imagecompare tool
+Setup a config file
+Npm module
+Run compare
+
+Other considerations.
+
+Having our npm package running in docker -- to eliminate cross-platform rendering shenanigans
+Storing images remotely.
+pipelines
+Automation
+
