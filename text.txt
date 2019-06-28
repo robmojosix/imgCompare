@@ -89,3 +89,15 @@ Storing images remotely.
 pipelines
 Automation
 
+
+Whitespace removed from text - save for unit tests
+
+Found it hard to automate using snapshots by just converting existing to cucumber
+I thought about adding a snapshot command but this defeats the object of making it seamless
+Realised that medium/feature tests and visual overlap
+QUOTE: Feature tests are all about what the user sees
+So lets make the beaviour tests just mimic user behaviour and not make assertions
+Requires you to look a snapshot to validate changes - can pass to stakeholders
+For BDD you won't have an automated fail but you'll have to look at screenshots to varify yourself - this could be improved
+
+Benefit from historical analysis - you can check feature from 1year 2 years etc
