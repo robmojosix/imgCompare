@@ -1,14 +1,26 @@
+What I'm aiming to exaplin/what I want you to get from this talk:
+• What's it for
+• Good tools out there
+• The problems I've faced with VR testing
+• A possible new way of approaching them
+• An example
+• Other considerations
+
+### What's it for
 Whats the problem: Automated testing can't tell you if something doesn't look right, so UI regressions may go undetected.
-Good for testing your web pages or even just a single component or part of a site for visual changes.
+
+Unit tests: lines of code
+Feature/Medium tests: browser/user behaviour
+Visual regression: UI regressions
+(you wouldn't write a test that said ensure this button is 200px wide and ir red and is 20px from bottom)
+
 (How much confidence do you have changing JS over css)
 
-Image regression tools:
-
+### Good tools out there
 Wraith: from BBC Capture mode and history mode
 give it 2 domains and it compares them now or over time
 http://bbc-news.github.io/wraith/#before_capturehooks
 Allows you to add cutom JS.
-(ALL baked in - I have to write regression tests to use it.)
 
 PhantomCSS: PhantomJS/CasperJS popular with frontenders  - no long being maintained
 Select part of a page or whole page - all configurable what to do when complete, when taking when comparing.
@@ -23,46 +35,52 @@ BackstopJS same again.
 
 jest-image-snapshot: https://www.npmjs.com/package/jest-image-snapshot same again.
 
-On the other hand you have tools like:
-Resemble.js which only give you a comparing API. You need to write a framework around it.
+(ALL baked in framework - I have to write regression tests to use it.)
 
-Huxley from facebook, now deprecated - you create a scenario by manually navigating a site while huxley records.
+On the other hand you have tools like:
+Resemble.js which only give you a comparing API. You need to write a framework around it. Offers too little.
+
+Other ideas
+
+Huxley from facebookyou create a scenario by manually navigating a site while huxley records.
 It records, mouse clicks and movements so it can replay them.
 You hit enter when you want a screen shot to be taken and huxley can then replay and compare later.
+(now deprecated)
 
 test-crawler: crawls your site and builds up a Visual regression suite.
-
-We also have these tools offered as Online services.
-
-Where is the sweet spot.
 
 Specture: a tool soely for comaring images. It requires apps to send data to a running ruby server which (which is Specture)
 That can compare screenshots. You have to provide a list of screenshots. not good locally. Ruby App.
 https://medium.com/friday-people/how-we-do-visual-regression-testing-af63fa8b8eb1
 Late fail scenarios
 
+We also have these tools offered as Online services.
+
 There are hundres.
 
+Where is the sweet spot. We have tools offering too much and some offering too little.
+
+### The problems I've faced with VR testing
 My experience: a UI lib and site.
 UI was easier but felt less effective. Where I wanted the reassurance was at a site level.
-Changing components. Consumers have no idea whats coming
+Changing components. Consumers have no idea what's coming
 
-A proposition.
+### A possible new way of approaching them
 First what I like about what's out there: separation of compare logic with writing tests.
 We already have tests - we don't want to rewrite them.
 Visual regression tests often become a sub set of tests.
-What I want is a single source for a BDD tests and a way of regression testing visuals to bolt on.
+What I want is a single source for my BDD tests and a way of regression testing visuals to bolt on.
 
 But to do this we need to change the way we approach BDD (slightly)
 First, I beleieve we should get better with our BDD tests.
 Medium tests aren't really doing it.
 As we've discussed - we need to provide a system whereby we have scenarios at the forefront of tickets
 and new scenarios discovered at build time are recorded and added.
-These scenarios should form the the ultimate documentation for our product. For dev and non-tech alike.
+These scenarios should form the the ultimate documentation for our product. For tech and non-tech alike.
 
 So we need to give complete importance to these tests.
 So we have a set of tests, written in any language that describe the product and every feature.
-A byproduct of this is that it can be used to automate a browser and test these features.
+A by-product of this is that it can be used to automate a browser and test these features.
 
 We have a tool for comparing images.
 
@@ -70,8 +88,8 @@ we need to bridge the gap.
 
 Introducing Feature Storyboarding. or FeatureBoarding.
 Based on storyBoarding.
-Apps should use which ever tech they want to add screen shots into those BDD tests.
-Ultimatley bringing them to life. yes yuo can run the test but it goes so fast etc.
+Apps should use whichever tech they want to add screen shots into those BDD tests.
+Ultimatley bringing them to life.
 You would have a visual record of every feature journey.
 Like a comic of the app.
 Imagine using it as a dev.
@@ -79,27 +97,44 @@ Imagine being asked what happend when a user gets their password wrong or their 
 Well look it up.
 If it aint there, it wasn't requested. Biz can ask for it or leave it.
 
-Show Imagecompare tool
-Setup a config file
-Npm module
-Run compare
-
-Other considerations.
-
-Having our npm package running in docker -- to eliminate cross-platform rendering shenanigans
-Storing images remotely.
-pipelines
-Automation
-
-
+### An example
+Walk through building it using Darrel's TodoMVC app.
 Whitespace removed from text - save for unit tests
 
 Found it hard to automate using snapshots by just converting existing to cucumber
 I thought about adding a snapshot command but this defeats the object of making it seamless
 Realised that medium/feature tests and visual overlap
+
 QUOTE: Feature tests are all about what the user sees
 So lets make the beaviour tests just mimic user behaviour and not make assertions
 Requires you to look a snapshot to validate changes - can pass to stakeholders
-For BDD you won't have an automated fail but you'll have to look at screenshots to varify yourself - this could be improved
+
+So actually the vanilla cypress would probably be better as the DSL for cucumber cypress maps scenarios to it blocks
+so beforeEachs don't work
 
 Benefit from historical analysis - you can check feature from 1year 2 years etc
+
+Show Imagecompare tool
+
+Show using them together
+
+### Other considerations.
+
+With VR
+visual regression anomalies (different browsers) 
+Having our npm package running in docker -- to eliminate cross-platform rendering shenanigans
+Storing images remotely.
+pipelines
+Automation - when to run
+
+With feature storyboarding
+Can't really do BDD - visual regression is backward looking
+You can't write a feature and BDD it.
+Your code is the test. You would need a whole new way of BDDing. ie: you write the code in TDD fashion which runs and builds
+the feature story boards. You show these to stakeholders who sign them off and then you refactor - not very fast tho
+
+OR how about we get the initial images as storyboards from UX and we fail our tests against these. Then we write code to those images
+until they pass. Not very itterative but could be made better.
+
+What we learnt:
+
