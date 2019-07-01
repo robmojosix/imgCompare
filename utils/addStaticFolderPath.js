@@ -1,4 +1,4 @@
-const config = require("../imgCompare.config.js");
+const config = require(process.cwd() + "/imgCompare.config.js");
 
 module.exports = function addStaticFolderPath(imgPaths) {
 	const returnObject = {};
