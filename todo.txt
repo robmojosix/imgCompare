@@ -1,5 +1,0 @@
-style incoming and base better in comparetor
-
-Write cucumber tests in darrels example project
-use ImgCompare in project
-

@@ -21,6 +21,8 @@ WebdriverCSS again the same.
 
 BackstopJS same again.
 
+jest-image-snapshot: https://www.npmjs.com/package/jest-image-snapshot same again.
+
 On the other hand you have tools like:
 Resemble.js which only give you a comparing API. You need to write a framework around it.
 
