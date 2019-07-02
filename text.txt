@@ -66,25 +66,13 @@ UI was easier but felt less effective. Where I wanted the reassurance was at a s
 Changing components. Consumers have no idea what's coming
 
 ### A possible new way of approaching them
-First what I like about what's out there: separation of compare logic with writing tests.
-We already have tests - we don't want to rewrite them.
-Visual regression tests often become a sub set of tests.
-What I want is a single source for my BDD tests and a way of regression testing visuals to bolt on.
 
-But to do this we need to change the way we approach BDD (slightly)
-First, I beleieve we should get better with our BDD tests.
-Medium tests aren't really doing it.
-As we've discussed - we need to provide a system whereby we have scenarios at the forefront of tickets
-and new scenarios discovered at build time are recorded and added.
-These scenarios should form the the ultimate documentation for our product. For tech and non-tech alike.
+My issues: VR frameworks, leads to writing separate tests.
 
-So we need to give complete importance to these tests.
-So we have a set of tests, written in any language that describe the product and every feature.
-A by-product of this is that it can be used to automate a browser and test these features.
+We have feature tests and visual regression testing, can we unify them.
+But still keep tech concerns separate Ie: the part that does the compare with the
+part that tells the story of the feature.
 
-We have a tool for comparing images.
-
-we need to bridge the gap.
 
 Introducing Feature Storyboarding. or FeatureBoarding.
 Based on storyBoarding.
@@ -92,31 +80,66 @@ Apps should use whichever tech they want to add screen shots into those BDD test
 Ultimatley bringing them to life.
 You would have a visual record of every feature journey.
 Like a comic of the app.
-Imagine using it as a dev.
-Imagine being asked what happend when a user gets their password wrong or their balance runs out midway thorugh a game and x and y.
-Well look it up.
-If it aint there, it wasn't requested. Biz can ask for it or leave it.
+
+Comparing them with visual regression is a separate concern.
 
 ### An example
-Walk through building it using Darrel's TodoMVC app.
-Whitespace removed from text - save for unit tests
+
+stage-1
+Try to storyboard the existing add todos feature.
+Screenshot names are bad. Before and after hooks don't really work
+
+stage-2
+Improved file naming
+
+stage-3
+I find the tests hard to read - Ben did a talk on the benefits of BDD and cucumber for writing behaviour tests
+Add cucmber-cupress for BDD style tests
+Trying to make the tests more BDD inline with the screenshot testing
+
+stage-4
+Add screenshots
+So actually the vanilla cypress would probably be better as the DSL for cucumber cypress maps scenarios to it blocks
+so beforeEachs don't work asthey map to scenarios
+
+But more interestingly I looked at the screenshots, they didn't tell the story of the feature and that's what I was trying to explore.
+It was like BDD in a visual sense. The images were driving and pushing my ideas on how the tests should be written. This looked wrong to me.
+
+There was so much repeatition. And if we look in the tests yes, so much of this is repeated.
 
 Found it hard to automate using snapshots by just converting existing to cucumber
-I thought about adding a snapshot command but this defeats the object of making it seamless
 Realised that medium/feature tests and visual overlap
 
 QUOTE: Feature tests are all about what the user sees
 So lets make the beaviour tests just mimic user behaviour and not make assertions
 Requires you to look a snapshot to validate changes - can pass to stakeholders
 
-So actually the vanilla cypress would probably be better as the DSL for cucumber cypress maps scenarios to it blocks
-so beforeEachs don't work
+Jump to stage-6
+2 things
+1. Removed duplication in test by storyboarding on paper first and writing the tests to accommodate
+    We can add a whitespace test to the existing scenario
+    The fact that the quantity increases we get for free.
+2. Adding snapshot command to solve DSL issue
+(but this defeats the object of making it seamless) normal cypress might be better
 
+
+Now we have our stroyboards we need a tool to test teh images.
+Show imgcompare
+config
+how it works
+interface
+
+Show with Visregression
+Whitespace removed from text - save for unit tests
+
+Imagine using it as a dev.
+Imagine being asked what happend when a user gets their password wrong or their balance runs out midway thorugh a game and x and y.
+Well look it up.
+If it aint there, it wasn't requested. Biz can ask for it or leave it.
 Benefit from historical analysis - you can check feature from 1year 2 years etc
 
-Show Imagecompare tool
-
-Show using them together
+No framework, no doubling up on tests. No getting lazy and leaving out half you VR tests
+Perfect documentation.
 
 ### Other considerations.
 
@@ -135,6 +158,3 @@ the feature story boards. You show these to stakeholders who sign them off and t
 
 OR how about we get the initial images as storyboards from UX and we fail our tests against these. Then we write code to those images
 until they pass. Not very itterative but could be made better.
-
-What we learnt:
-
