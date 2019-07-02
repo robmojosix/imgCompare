@@ -146,6 +146,7 @@ Perfect documentation.
 With VR
 visual regression anomalies (different browsers) 
 Having our npm package running in docker -- to eliminate cross-platform rendering shenanigans
+Annimations /transitions - but were an issue with feature tests anyway
 Storing images remotely.
 pipelines
 Automation - when to run
