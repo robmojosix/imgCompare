@@ -73,7 +73,6 @@ We have feature tests and visual regression testing, can we unify them.
 But still keep tech concerns separate Ie: the part that does the compare with the
 part that tells the story of the feature.
 
-
 Introducing Feature Storyboarding. or FeatureBoarding.
 Based on storyBoarding.
 Apps should use whichever tech they want to add screen shots into those BDD tests.
@@ -99,8 +98,6 @@ Trying to make the tests more BDD inline with the screenshot testing
 
 stage-4
 Add screenshots
-So actually the vanilla cypress would probably be better as the DSL for cucumber cypress maps scenarios to it blocks
-so beforeEachs don't work asthey map to scenarios
 
 But more interestingly I looked at the screenshots, they didn't tell the story of the feature and that's what I was trying to explore.
 It was like BDD in a visual sense. The images were driving and pushing my ideas on how the tests should be written. This looked wrong to me.
@@ -121,9 +118,10 @@ Jump to stage-6
     The fact that the quantity increases we get for free.
 2. Adding snapshot command to solve DSL issue
 (but this defeats the object of making it seamless) normal cypress might be better
+So actually the vanilla cypress would probably be better as the DSL for cucumber cypress maps scenarios to it blocks
+so beforeEachs don't work asthey map to scenarios
 
-
-Now we have our stroyboards we need a tool to test teh images.
+Now we have our stroyboards we need a tool to test the images.
 Show imgcompare
 config
 how it works
