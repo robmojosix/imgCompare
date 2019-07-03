@@ -17,46 +17,51 @@ Visual regression: UI regressions
 (How much confidence do you have changing JS over css)
 
 ### Good tools out there
-Wraith: from BBC Capture mode and history mode
-give it 2 domains and it compares them now or over time
-http://bbc-news.github.io/wraith/#before_capturehooks
-Allows you to add cutom JS.
 
-PhantomCSS: PhantomJS/CasperJS popular with frontenders  - no long being maintained
-Select part of a page or whole page - all configurable what to do when complete, when taking when comparing.
-You write your phantomCSS commands into your scenarios
-but these have to be writen using CasperJS
+https://github.com/mojoaxel/awesome-regression-testing
 
-Gemini: build on top of Selenium. Again, provides the test suite. You write the scenarios
+Tools
+    Wraith: from BBC Capture mode and history mode
+    give it 2 domains and it compares them now or over time
+    http://bbc-news.github.io/wraith/#before_capturehooks
+    Allows you to add cutom JS.
 
-WebdriverCSS again the same.
+    PhantomCSS: PhantomJS/CasperJS popular with frontenders  - no long being maintained
+    Select part of a page or whole page - all configurable what to do when complete, when taking when comparing.
+    You write your phantomCSS commands into your scenarios
+    but these have to be writen using CasperJS
 
-BackstopJS same again.
+    Gemini: build on top of Selenium. Again, provides the test suite. You write the scenarios
 
-jest-image-snapshot: https://www.npmjs.com/package/jest-image-snapshot same again.
+    WebdriverCSS again the same.
 
-(ALL baked in framework - I have to write regression tests to use it.)
+    BackstopJS same again.
 
-On the other hand you have tools like:
-Resemble.js which only give you a comparing API. You need to write a framework around it. Offers too little.
+    jest-image-snapshot: https://www.npmjs.com/package/jest-image-snapshot same again.
 
-Other ideas
+    (ALL baked in framework - I have to write regression tests to use it.)
 
-Huxley from facebookyou create a scenario by manually navigating a site while huxley records.
-It records, mouse clicks and movements so it can replay them.
-You hit enter when you want a screen shot to be taken and huxley can then replay and compare later.
-(now deprecated)
+    On the other hand you have tools like:
+    Resemble.js which only give you a comparing API. You need to write a framework around it. Offers too little.
 
-test-crawler: crawls your site and builds up a Visual regression suite.
+    Other ideas
 
-Specture: a tool soely for comaring images. It requires apps to send data to a running ruby server which (which is Specture)
-That can compare screenshots. You have to provide a list of screenshots. not good locally. Ruby App.
-https://medium.com/friday-people/how-we-do-visual-regression-testing-af63fa8b8eb1
-Late fail scenarios
+    Huxley from facebookyou create a scenario by manually navigating a site while huxley records.
+    It records, mouse clicks and movements so it can replay them.
+    You hit enter when you want a screen shot to be taken and huxley can then replay and compare later.
+    (now deprecated)
 
-We also have these tools offered as Online services.
+    test-crawler: crawls your site and builds up a Visual regression suite.
 
-There are hundres.
+    Specture: a tool soely for comaring images. It requires apps to send data to a running ruby server which (which is Specture)
+    That can compare screenshots. You have to provide a list of screenshots. not good locally. Ruby App.
+    https://medium.com/friday-people/how-we-do-visual-regression-testing-af63fa8b8eb1
+    Late fail scenarios
+Falls into a few categories:
+Frameworks that do everything
+Basic image comparing tools
+Online services.
+Crawling and fully automated services.
 
 Where is the sweet spot. We have tools offering too much and some offering too little.
 
