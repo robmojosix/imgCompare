@@ -155,14 +155,6 @@ Whitespace removed from text - save for unit tests
 
 ### Other considerations.
 
-With VR
-visual regression anomalies (different browsers) 
-Having our npm package running in docker -- to eliminate cross-platform rendering shenanigans
-Annimations /transitions - but were an issue with feature tests anyway
-Storing images remotely.
-pipelines
-Automation - when to run
-
 With feature storyboarding
 Can't really do BDD - visual regression is backward looking
 You can't write a feature and BDD it.
@@ -171,3 +163,11 @@ the feature story boards. You show these to stakeholders who sign them off and t
 
 OR how about we get the initial images as storyboards from UX and we fail our tests against these. Then we write code to those images
 until they pass. Not very itterative but could be made better.
+
+With VR
+visual regression anomalies (different browsers) 
+Having our npm package running in docker -- to eliminate cross-platform rendering shenanigans
+Annimations /transitions - but were an issue with feature tests anyway
+Storing images remotely.
+pipelines
+Automation - when to run
