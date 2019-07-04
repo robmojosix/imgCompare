@@ -7,7 +7,7 @@ What I'm aiming to exaplin/what I want you to get from this talk:
 • Other considerations
 
 ### What's it for
-Whats the problem: Automated testing can't tell you if something doesn't look right, so UI regressions may go undetected.
+Whats the problem: Feature test can't tell you if something doesn't look right, so UI regressions may go undetected.
 
 Unit tests: lines of code
 Feature/Medium tests: browser/user behaviour
@@ -69,6 +69,8 @@ Where is the sweet spot. We have tools offering too much and some offering too l
 My experience: a UI lib and site.
 UI was easier but felt less effective. Where I wanted the reassurance was at a site level.
 Changing components. Consumers have no idea what's coming
+Maintaning it was hard
+** Writing another set of tests was hard, they got forgotten.
 
 ### A possible new way of approaching them
 
@@ -126,6 +128,22 @@ Jump to stage-6
 So actually the vanilla cypress would probably be better as the DSL for cucumber cypress maps scenarios to it blocks
 so beforeEachs don't work asthey map to scenarios
 
+### Good parts
+
+Imagine using it as a dev.
+Single-source of truth for tests around what a user sees/experiences
+Solid documentation about features that can be sahared with any part of the business.
+Imagine being asked what happend when a user gets their password wrong or their balance runs out midway thorugh a game and x and y.
+Well look it up.
+If it aint there, it wasn't requested. Biz can ask for it or leave it.
+Benefit from historical analysis - you can check feature from 1year 2 years etc
+You only have to write one set of feature tests - no doubling up.
+You get far more test coverage,
+All those tests ou have to write when something changes to the user - you get for free.
+You aren't likely to miss any coverage.
+No framework
+No getting lazy and leaving out half you VR tests
+
 Now we have our stroyboards we need a tool to test the images.
 Show imgcompare
 config
@@ -134,15 +152,6 @@ interface
 
 Show with Visregression
 Whitespace removed from text - save for unit tests
-
-Imagine using it as a dev.
-Imagine being asked what happend when a user gets their password wrong or their balance runs out midway thorugh a game and x and y.
-Well look it up.
-If it aint there, it wasn't requested. Biz can ask for it or leave it.
-Benefit from historical analysis - you can check feature from 1year 2 years etc
-
-No framework, no doubling up on tests. No getting lazy and leaving out half you VR tests
-Perfect documentation.
 
 ### Other considerations.
 
